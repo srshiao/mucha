@@ -19,7 +19,7 @@ public class Player {
 	//20 random minions, 10 random spells, and then draws 4 into hand
 	public Player(String name, String heroPower) {
 		mana = 0;
-		health = 30;
+		health = 15;
 		this.name = name;
 		this.heroPower = heroPower;
 		

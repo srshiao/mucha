@@ -70,6 +70,8 @@ public class Driver {
 				p2.mana = turn;
 			}
 			p1.draw();
+			pHealth = new JLabel(p1.getName() + "'s turn! (Turn #: " + turn + ") \n" + p1.getName() + " Health: " + p1.getHealth() + 
+					"\n\n " + p2.getName() + " Health: " + p2.getHealth());
 			//draws the hand
 			if(p1.hand.size() > 0) {
 			
@@ -81,8 +83,7 @@ public class Driver {
 					for (Card c : p1.hand) {
 						//System.out.println(c.getName());
 						cardimg = ImageIO.read(new File(c.getName() + ".jpg"));
-						//for flipping
-						//g2.drawImage(image, x + width, y, -width, height, null);
+					
 						g.drawImage(cardimg, x, y, null);
 						cost = ImageIO.read(new File("stats/" + c.getCost() + "cost.jpg"));
 						g.drawImage(cost, x, y, null);
@@ -95,7 +96,6 @@ public class Driver {
 						}
 						x += 175;
 						BufferedImage empty = ImageIO.read(new File("empty.png"));
-						//g.drawImage(empty, x, y, null);
 						g.drawImage(empty, x, y, 25, 274, frame.getContentPane().getBackground(), null);
 						x += 25;
 					}
@@ -115,7 +115,6 @@ public class Driver {
 				x = 0;
 				y = 0;
 				for (Card c : p1.board) {
-					//System.out.println(c.getName());
 					cardimg = ImageIO.read(new File(c.getName() + ".jpg"));
 	
 					gr.drawImage(cardimg, x, y, null);
@@ -221,7 +220,6 @@ public class Driver {
 					frame.add(cards, BorderLayout.CENTER);
 					frame.repaint();
 					frame.revalidate();
-					System.out.println("Number of cards in cards: " + cards.getItemCount());
 				}
 				//System.out.println("hello");
 			}
@@ -332,7 +330,7 @@ public class Driver {
 					}
 				frame.remove(pHealth);
 				frame.revalidate();
-				pHealth = new JLabel(p1.getName() + "'s turn! (Turn #: " + turn + ")\n" + p1.getName() + " Health: " + p1.getHealth() + 
+				pHealth = new JLabel(p1.getName() + "'s turn! (Turn #: " + turn + ") \n" + p1.getName() + " Health: " + p1.getHealth() + 
 						"\n\n " + p2.getName() + " Health: " + p2.getHealth());
 				frame.add(pHealth, BorderLayout.EAST);
 				//System.out.println(p1.board + " 2: " + p2.board);
@@ -501,9 +499,7 @@ public class Driver {
 					frame.add(cards2, BorderLayout.CENTER);
 					frame.repaint();
 					frame.revalidate();
-					System.out.println("Number of cards2 in cards2: " + cards2.getItemCount());
 				}
-				//System.out.println("hello");
 			}
 			else if (p2.hand.get(cards2.getSelectedIndex() - 1).getClass() == new Spell().getClass()){
 				if(p2.cast((Spell)p2.hand.get(cards2.getSelectedIndex() - 1), p1)){
@@ -586,12 +582,11 @@ public class Driver {
 					if(selected.equals(p1.getName())){
 						p2.attack(attacker, p1);
 						if(p1.lost()) {
-							System.out.println(p1.getName() + " loses!");
-							System.exit(0);
+							frame.getContentPane().removeAll();
+							frame.add(new JLabel(p1.getName() + " wins!"));
 						}
 						else if(p2.lost()) {
 							System.out.println(p2.getName() + " loses!");
-							System.exit(0);
 						}
 					}
 					else {
